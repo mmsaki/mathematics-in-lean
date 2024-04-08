@@ -28,8 +28,8 @@ example : (a + b) * (a + b) = a * a + 2 * (a * b) + b * b := by ring
 example : (a + b) * (a - b) = a ^ 2 - b ^ 2 := by ring
 
 example (hyp : c = d * a + b) (hyp' : b = a * d) : c = 2 * a * d := by
-  rw [hyp, hyp']
-  ring
+  rw [hyp, hyp', mul_comm d a]
+  rw [← two_mul (a * d),← mul_assoc]
 
 end
 
@@ -53,7 +53,8 @@ theorem neg_add_cancel_left (a b : R) : -a + (a + b) = b := by
 
 -- Prove these:
 theorem add_neg_cancel_right (a b : R) : a + b + -b = a := by
-  sorry
+  rw [add_assoc]
+  simp
 
 theorem add_left_cancel {a b c : R} (h : a + b = a + c) : b = c := by
   sorry
@@ -143,4 +144,3 @@ theorem mul_inv_rev (a b : G) : (a * b)⁻¹ = b⁻¹ * a⁻¹ := by
 end MyGroup
 
 end
-
